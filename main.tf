@@ -1,3 +1,14 @@
+terraform { 
+  cloud { 
+    
+    organization = "crm-project" 
+
+    workspaces { 
+      name = "microservices-infrastructure" 
+    } 
+  } 
+}
+
 #modules
 module "vpc_crm" {
   source          = "./modules/vpc"
