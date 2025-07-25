@@ -25,3 +25,16 @@ resource "aws_apigatewayv2_route" "routes" {
   route_key = "ANY ${each.value}"
   target    = "integrations/${aws_apigatewayv2_integration.integrations[each.key].id}"
 }
+
+resource "aws_apigatewayv2_api" "crm_api_gateway" {
+  name          = var.name
+  protocol_type = "HTTP"
+
+  cors_configuration {
+    allow_origins = ["*"]
+    allow_methods = ["*"]
+    allow_headers = ["Content-Type", "Authorization", "X-Amz-Date", "X-Api-Key", "X-Amz-Security-Token"]
+    expose_headers = ["*"]  
+    max_age = 3600
+  }
+}
