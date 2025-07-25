@@ -183,6 +183,11 @@ resource "aws_ecs_cluster" "crm_cluster" {
   name = "crm-cluster"
 }
 
+resource "aws_cloudwatch_log_group" "person_service" {
+  name              = "/aws/ecs/person-service"
+  retention_in_days = 30
+}
+
 
 #person-service
 resource "aws_ecs_task_definition" "person" {
@@ -206,7 +211,7 @@ resource "aws_ecs_task_definition" "person" {
     log_configuration = {
       log_driver = "awslogs"
       options = {
-        awslogs-group         = "aws/ecs/person-service"
+        awslogs-group         = "/aws/ecs/person-service"
         awslogs-region        = "us-east-1"
         awslogs-stream-prefix = "ecs"
       }
@@ -235,6 +240,9 @@ resource "aws_ecs_service" "person_service" {
   }
   depends_on = [module.alb]
 }
+
+
+
 
 #role service
 resource "aws_ecs_task_definition" "role" {
