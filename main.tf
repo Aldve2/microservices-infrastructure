@@ -9,6 +9,11 @@ terraform {
   } 
 }
 
+provider "aws" {
+  region = "us-east-1"
+}
+
+
 #modules
 module "vpc_crm" {
   source          = "./modules/vpc"
